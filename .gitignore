@@ -1,0 +1,7 @@
+.gradle/
+.gradletasknamecache
+.DS_Store
+build/
+*war/*
+*.war*
+*target/*
