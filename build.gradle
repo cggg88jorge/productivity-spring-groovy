@@ -1,0 +1,21 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = 'com.makingdevs.Application'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.5'
+}
+
+jar {
+    baseName = 'example-gradle'
+    version =  '0.1.0'
+}
+
