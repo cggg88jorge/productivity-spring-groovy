@@ -1,17 +1,19 @@
 apply plugin: 'groovy'
 apply plugin: 'application'
 
-mainClassName = 'com.makingdevs.Application'
+mainClassName = 'com.makingdevs.ExampleApplication'
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    compile 'org.springframework.data:spring-data-jpa:1.9.0.RELEASE'
+    compile 'org.springframework.data:spring-data-mongodb:1.8.0.RELEASE'
 }
 
 jar {
