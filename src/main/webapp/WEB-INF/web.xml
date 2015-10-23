@@ -1,31 +1,27 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://java.sun.com/xml/ns/javaee
   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-<servlet>
-  <servlet-name>GroovyServlet</servlet-name>
-  <servlet-class>groovy.servlet.GroovyServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-  <servlet-name>GroovyServlet</servlet-name>
-  <url-pattern>*.groovy</url-pattern>
-</servlet-mapping>
+  <servlet>
+    <servlet-name>GroovyServlet</servlet-name>
+    <servlet-class>groovy.servlet.GroovyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroovyServlet</servlet-name>
+    <url-pattern>*.groovy</url-pattern>
+  </servlet-mapping>
 
-<beans>
-    <!-- first, define your individual @Configuration classes as beans -->
-    <bean class="com.myapp"/>
-    <bean class="com.myapp.config.DataConfig"/>
-
-    <!-- be sure to include the JavaConfig bean post-processor -->
-    <bean class="org.springframework.config.java.process.ConfigurationPostProcessor"/>
-</beans>
-
-<context-param>
-   <param-name>contextConfigLocation</param-name>
-   <param-value>classpath:com.makingdevs.ExampleApplication'</param-value>
-</context-param>
-
-<listener>
-   <listener-class>
+  <listener>
+    <listener-class>
       org.springframework.web.context.ContextLoaderListener
-   </listener-class>
-</listener>
+    </listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>
+      org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+    </param-value>
+  </context-param>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.makingdevs.config.AppCtxConfig</param-value>
+  </context-param>
 </web-app>
