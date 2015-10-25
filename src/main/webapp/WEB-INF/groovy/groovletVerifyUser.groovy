@@ -1,16 +1,33 @@
 import org.springframework.web.context.support.*
+import javax.servlet.http.HttpServletResponse
 import org.springframework.web.context.*
 
-println "en el groovlet"
+try {
+  WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context)
+  def actor = ctx.getBean('delegateActor')
+  def contentType = headers.find { k,v -> k.toLowerCase() == 'content-type' }?.value
 
-WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context)
+  if(contentType != "application/json")
+    throw new RuntimeException("Please use 'application/json' header, just received ${headers} instead")
 
-println "<br>"
-println ctx.getBean("customerRepository")
-println "<br>"
-println ctx.getBean("delegateActor")
-println "<br>"
-println ctx.properties
-println "<br>"
+  if(!params.username)
+    throw new RuntimeException("The 'username' param is required")
 
-//ctx.getBean(CustomerRepository)
+  if (!actor.isActive())
+    actor.start()
+
+  actor.send(params.username)
+
+  response.contentType = 'application/json'
+  json(status:'OK') 
+
+}
+catch(RuntimeException e) {
+  println e.message
+  response.contentType = 'application/json'
+  response.setStatus(HttpServletResponse.SC_BAD_REQUEST, e.message)
+}catch(Exception e){
+  println e.message
+  response.contentType = 'application/json'
+  response.setStatus(HttpServletResponse.SC_NOT_FOUND, e.message)
+}
