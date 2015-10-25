@@ -16,6 +16,7 @@ dependencies {
     compile 'org.codehaus.gpars:gpars:1.2.1'
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'com.github.groovy-wslite:groovy-wslite:1.1.2'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.1.Final'
 }
 
 jar {
