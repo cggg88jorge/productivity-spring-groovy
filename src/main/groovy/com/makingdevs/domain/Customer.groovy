@@ -1,4 +1,4 @@
-package com.makingdevs
+package com.makingdevs.domain
 
 import org.springframework.data.annotation.Id
 
