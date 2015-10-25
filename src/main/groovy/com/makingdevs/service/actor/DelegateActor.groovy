@@ -14,12 +14,12 @@ class DelegateActor extends DefaultActor {
   @Override
   protected void act() {
     loop {
-      react { Map data ->
+      react { String username ->
         try {
           println "El actor entra en el proceso"
-          migrationService.initMiration()
+          migrationService.initMiration(username)
           } catch (Exception e) {
-            e.printStackTrace()
+            println e.printStackTrace()
             println "error"
           }
         }
