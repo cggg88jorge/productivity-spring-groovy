@@ -1,8 +1,5 @@
 apply plugin: 'groovy'
-apply plugin: 'application'
 apply plugin: 'jetty'
-
-mainClassName = 'com.makingdevs.ExampleApplication'
 
 repositories {
     mavenCentral()
@@ -12,11 +9,13 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    compile 'org.codehaus.groovy:groovy-all:2.3.10'
     compile 'org.springframework.data:spring-data-jpa:1.9.0.RELEASE'
     compile 'org.springframework.data:spring-data-mongodb:1.8.0.RELEASE'
     compile 'org.springframework:spring-web:4.2.2.RELEASE'
+    compile 'org.codehaus.gpars:gpars:1.2.1'
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'com.github.groovy-wslite:groovy-wslite:1.1.2'
 }
 
 jar {
