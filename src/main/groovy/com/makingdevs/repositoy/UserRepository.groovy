@@ -5,4 +5,6 @@ import com.makingdevs.domain.User
 
 interface UserRepository extends MongoRepository<User, String> {
 
+  User findByUsername(String username)
+
 }
