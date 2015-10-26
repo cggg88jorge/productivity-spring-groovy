@@ -15,7 +15,7 @@ class MongoConfiguration extends AbstractMongoConfiguration {
   private static final String PROPERTIES_FILE_URL = "${System.properties['user.home']}/.projects_config/productivity-spring-groovy.properties"
 
   String getDatabaseName() {
-    "local"
+    "productivity-spring"
   }
 
   Mongo mongo() throws Exception {
