@@ -2,7 +2,10 @@ package com.makingdevs.domain
 
 import org.springframework.data.annotation.Id
 import javax.persistence.*
+import org.springframework.data.mongodb.core.mapping.Document
+import com.mongodb.*
 
+@Document
 public class Comment {
 
   @Id
@@ -10,9 +13,5 @@ public class Comment {
 
   String title
   String body
-
-  @ManyToOne
-  @JoinColumn(name="user_id")
-  User author
 
 }
