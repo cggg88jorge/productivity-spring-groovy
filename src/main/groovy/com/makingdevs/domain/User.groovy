@@ -1,8 +1,11 @@
 package com.makingdevs.domain
 
 import org.springframework.data.annotation.Id
-import javax.persistence.*
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.DBRef
+import com.mongodb.*
 
+@Document
 public class User {
 
   @Id
@@ -12,7 +15,7 @@ public class User {
   String username
   String email
 
-  @OneToMany(mappedBy = "user")
-  Set<Comment> comments = new ArrayList<Comment>()
+  @DBRef
+  List<Comment> comments = new ArrayList<Comment>()
 
 }
