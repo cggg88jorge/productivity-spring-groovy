@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 import com.makingdevs.domain.*
 import com.makingdevs.repository.*
 
+import com.makingdevs.command.PostCommand
+import com.makingdevs.command.PhotoCommand
+
 @Service
 class MigrationServiceImpl implements MigrationService{
 
@@ -21,22 +24,36 @@ class MigrationServiceImpl implements MigrationService{
 
   def initMiration(String username){
     println "empieza la migracion"
-    /*println userRepository.findAll().last().dump()
-    println userRepository.findAllByUsername("cggg88jorge")*/
-    def user = new User(name:"jorge",username:"cggg88jorge",email:"jorge@makingdevs.com")
-    userRepository.save(user)
-    def comment = new Comment(title:"tema",body:"lalalalalalalalal")
-    commentRepository.save(comment)
-    user.comments += comment
-    userRepository.save(user)
-    println user.dump()
+    def userRest = restConnectionService.get("/users",[username:username])
 
-    def user = restConnectionService.get("/users",[username:username])
+    def userMongo = userRepository.findByUsername(username)
+    if(!userMongo){
+      userMongo = new User(name:userRest.name,username:userRest.username,email:userRest.email)
+      userRepository.save(userMongo)
+    }
+    def comments = restConnectionService.get("/comments",[postId:userRest.id])
 
-    //buscar en la base
-    // ir pot sus comentarios
-    //generar estrucutra
-    // gurdarlos
+    userMongo.comments += comments.collect { comment ->
+      comment = new Comment(title:comment.name,body:comment.body)
+      commentRepository.save(comment)
+    }
+    userRepository.save(userMongo)
+
+    def posts = restConnectionService.get("/posts",[userId:userRest.id])
+    def photos = restConnectionService.get("/photos",[albumId:userRest.id])
+
+    def listPhotos = photos.collect{ photo ->
+      new PhotoCommand().jsonConverter(photo)
+    }
+
+    def listPosts = posts.collect{ post ->
+      new PostCommand().jsonConverter(post)
+    }    
+
+    // regresamos los datos
+    def map = [listPhotos:listPhotos,listPosts:listPosts]
+    println map
+    println "fin"
   }
 
 }
